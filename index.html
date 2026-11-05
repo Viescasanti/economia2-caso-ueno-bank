@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caso ueno bank - Economía II (U3, U4 y U5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,500;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:oklch(0.19 0.018 255);
+    --surface:oklch(0.235 0.02 255);
+    --surface-2:oklch(0.275 0.022 255);
+    --line:oklch(0.34 0.02 255);
+    --ink:oklch(0.94 0.008 255);
+    --ink-2:oklch(0.82 0.012 255);
+    --mut:oklch(0.70 0.015 255);
+    --u3:oklch(0.80 0.11 300);
+    --u3-bg:oklch(0.26 0.045 300);
+    --u4:oklch(0.82 0.13 80);
+    --u5:oklch(0.80 0.10 215);
+    --u4-bg:oklch(0.26 0.04 80);
+    --u5-bg:oklch(0.255 0.04 215);
+    --ok:oklch(0.80 0.13 150);
+    --ok-bg:oklch(0.30 0.05 150);
+    --warn:oklch(0.82 0.12 60);
+    --warn-bg:oklch(0.31 0.06 60);
+    --serif:"Literata",Georgia,serif;
+    --sans:"Atkinson Hyperlegible","Segoe UI",Verdana,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--bg)}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--sans);-webkit-text-size-adjust:100%}
+  main{max-width:1100px;margin:0 auto;padding:0 20px 96px}
+  a{color:var(--u5);text-underline-offset:3px}
+  b,strong{color:var(--ink)}
+  p{margin:0 0 10px}
+  p:last-child{margin-bottom:0}
+
+  nav{position:sticky;top:0;z-index:10;background:color-mix(in oklch,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);padding:10px 20px}
+  nav ul{max-width:1100px;margin:0 auto;padding:0;list-style:none;display:flex;gap:8px;flex-wrap:wrap}
+  nav a{display:block;padding:6px 14px;border-radius:999px;background:var(--surface);color:var(--ink-2);text-decoration:none;font-size:15px}
+  nav a:hover,nav a:focus-visible{background:var(--surface-2);color:var(--ink)}
+
+  header{padding:64px 0 0}
+  h1{font:600 clamp(2rem,5vw,3.2rem)/1.2 var(--serif);margin:0 0 14px;text-wrap:balance;letter-spacing:-.01em}
+  .sub{color:var(--mut);font-size:16px;max-width:70ch;margin:0}
+  .intro{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 24px;max-width:78ch;color:var(--ink-2)}
+
+  section{padding-top:64px}
+  section>h2{font:600 clamp(1.6rem,3.6vw,2.2rem)/1.25 var(--serif);margin:0 0 6px}
+  .lead{color:var(--mut);margin:0 0 22px;max-width:70ch}
+  #u3>h2{color:var(--u3)} #u4>h2{color:var(--u4)} #u5>h2{color:var(--u5)}
+
+  /* tabla principal: filmina | Paraguay */
+  .map{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .map th{text-align:left;font-size:14px;font-weight:700;color:var(--mut);padding:12px 22px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+  .map td{vertical-align:top;padding:22px;border-top:1px solid var(--line)}
+  .map tr:first-child td{border-top:0}
+  .map td.f{width:40%}
+  #u3 .map td.f{background:var(--u3-bg)} #u4 .map td.f{background:var(--u4-bg)} #u5 .map td.f{background:var(--u5-bg)}
+  .map td.p{background:var(--surface)}
+  .tema{display:block;font:600 1.05rem/1.4 var(--serif);letter-spacing:.02em;margin-bottom:8px}
+  #u3 .tema{color:var(--u3)} #u4 .tema{color:var(--u4)} #u5 .tema{color:var(--u5)}
+  .conc{color:var(--ink);margin:0 0 10px}
+  .ref{display:inline-block;font-size:13px;color:var(--mut);background:oklch(0.22 0.015 255);padding:2px 10px;border-radius:999px}
+  .k{display:block;font-size:13px;font-weight:700;color:var(--mut);margin:0 0 3px}
+  .k + p{color:var(--ink-2)}
+  .union{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+  .union p{color:var(--ink)}
+  .chip{display:inline-block;padding:0 8px;border-radius:999px;font-size:12px;font-weight:700;line-height:1.7;vertical-align:1px;margin-left:4px}
+  .ok{background:var(--ok-bg);color:var(--ok)}
+  .pr{background:var(--warn-bg);color:var(--warn)}
+  .lim{margin-top:10px;font-size:15px;color:var(--mut)}
+
+  /* asientos */
+  .extra{margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+  .extra h3{font:600 1.2rem var(--serif);margin:0 0 6px}
+  .extra .lead{margin-bottom:14px}
+  .bp{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5}
+  .bp th{text-align:left;font-size:13.5px;color:var(--mut);padding:8px 10px;border-bottom:2px solid var(--line)}
+  .bp td{padding:10px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top}
+  .bp td.n{white-space:nowrap;font-weight:700;color:var(--ink)}
+  .calc{margin-top:14px;font-size:15.5px;color:var(--ink-2)}
+
+  .nope{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 24px}
+  .nope ul{margin:0;padding-left:20px} .nope li{margin:8px 0;color:var(--ink-2)}
+  .src{padding-left:20px} .src li{margin:9px 0;color:var(--ink-2)}
+
+  @media (max-width:760px){
+    body{font-size:16.5px}
+    header{padding-top:44px}
+    .map thead{display:none}
+    .map,.map tbody,.map tr,.map td{display:block;width:100%}
+    .map td.f{width:100%}
+    .map td{padding:18px}
+    .map tr + tr td.f{border-top:6px solid var(--bg)}
+    .map td.p{border-top:0}
+    .bp thead{display:none}
+    .bp,.bp tbody,.bp tr,.bp td{display:block;width:100%}
+    .bp tr{background:var(--surface-2);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+    .bp td{border:0;padding:2px 0}
+    .bp td::before{content:attr(data-l);display:block;font-size:12.5px;color:var(--mut)}
+  }
+
+  @media print{
+    @page{size:A4;margin:12mm}
+    nav{display:none}
+    body{font-size:12px;line-height:1.5}
+    main{padding:0;max-width:none}
+    header{padding:0} section{padding-top:20px}
+    .intro{margin-top:14px;padding:12px 16px}
+    .map td{padding:12px 14px}
+    .map tr,.bp tr,.nope,.extra{break-inside:avoid}
+    h2,h3{break-after:avoid}
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Secciones">
+  <ul>
+    <li><a href="#u3">Unidad 3</a></li>
+    <li><a href="#u4">Unidad 4</a></li>
+    <li><a href="#u5">Unidad 5</a></li>
+    <li><a href="#fuentes">Fuentes</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<header>
+  <h1>Caso ueno bank (Paraguay) y Economía II</h1>
+  <p class="sub">Fundamentos de Economía II · Prof. Lagraña · Unidades 3, 4 y 5. Solo se incluyen los temas de la filmina que tienen relación real con el caso.</p>
+  <div class="intro">
+    <p><b>Qué pasó, en simple.</b> ueno bank era el 6.º banco de Paraguay por depósitos, con unos 3 millones de clientes. En marzo de 2026 pidió prestados <b>US$ 350 millones a inversores de afuera</b> con un bono. El Estado tenía mucha plata depositada ahí, incluida la de la <b>caja de jubilaciones (IPS)</b>.</p>
+    <p>El <b>2 de noviembre de 2026 el Banco Central del Paraguay (BCP) intervino el banco</b>. La causa oficial: su <b>índice de solvencia</b> (cuánto capital propio tiene frente a lo que prestó) cayó a <b>5,56 %, cuando el mínimo es 12 %</b>. También se informó que <b>no pudo reponer un encaje de US$ 70 millones</b>. Los servicios del banco quedaron suspendidos y los clientes, sin acceso a su plata por al menos 15 días.</p>
+  </div>
+</header>
+
+<section id="u3">
+  <h2>Unidad 3: Política macroeconómica</h2>
+  <p class="lead">Filmina "U3 Filminas FE II.pdf". Acá está el núcleo de la intervención: el encaje y el papel del Banco Central.</p>
+
+  <table class="map">
+    <thead><tr><th>Tema de la filmina</th><th>Qué pasó en Paraguay y cómo se une</th></tr></thead>
+    <tbody>
+
+    <tr>
+      <td class="f">
+        <span class="tema">POLÍTICA MONETARIA: ENCAJE BANCARIO</span>
+        <p class="conc">Es el <b>porcentaje de los depósitos que los bancos deben mantener en reserva</b>, sin prestar, inmovilizado en el Banco Central.</p>
+        <p class="conc">Esas reservas son parte de la <b>base monetaria</b>: efectivo del público + reservas de los bancos en el Banco Central.</p>
+        <span class="ref">Filmina págs. 9, 11 y 13 · Nota págs. 7, 9 y 11</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>Según la prensa económica, ueno <b>no pudo reponer un encaje legal de US$ 70 millones</b>: no tenía en el BCP la reserva que le correspondía por los depósitos que había recibido. El BCP, además, señaló un <b>deterioro de sus indicadores de liquidez</b>.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>El encaje existe para que una parte de la plata de los ahorristas <b>no se preste y quede guardada</b>. Si el banco no puede cumplirlo, ya no tiene esa reserva mínima. Es una señal de que le falta liquidez, o sea, plata disponible para devolver depósitos.</p>
+        </div>
+        <p class="lim">Ojo: la causa que da el comunicado oficial del BCP es la solvencia. El faltante de encaje lo informan los medios.</p>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="f">
+        <span class="tema">BANCO CENTRAL: FUNCIONES</span>
+        <p class="conc">Emitir dinero, controlar la inflación, <b>regular el sistema financiero</b>, actuar como prestamista, administrar las reservas internacionales y la política cambiaria.</p>
+        <p class="conc">La nota explica que regular es <b>supervisar a los bancos para que operen de forma segura</b>, "protegiendo así los intereses de los ahorristas".</p>
+        <span class="ref">Filmina pág. 12 · Nota pág. 10</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>El BCP <b>intervino el banco</b>: mandó unos 150 interventores para revisar sus cuentas y cuidar sus activos. A los ahorristas, el Fondo de Garantía de Depósitos les cubre <b>hasta 75 salarios mínimos</b> (₲ 228,3 millones) por persona.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>Es la función de <b>regular el sistema financiero</b> en acción. El Banco Central supervisa, ve que el banco ya no es seguro y lo interviene para <b>proteger a los ahorristas</b>, que es exactamente lo que dice la nota.</p>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="f">
+        <span class="tema">INGRESOS POR FINANCIAMIENTO: EL BONO</span>
+        <p class="conc">Las empresas pueden conseguir fondos <b>emitiendo un bono</b>, un instrumento de deuda. El deudor se obliga a pagarle al tenedor <b>intereses en intervalos regulares</b> hasta la <b>fecha de vencimiento</b>.</p>
+        <span class="ref">Nota pág. 6</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>En marzo de 2026 ueno emitió un <b>bono de US$ 350 millones</b>, con un interés del <b>6,70 % anual</b> y vencimiento en <b>2031</b>.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>Es la definición de la nota aplicada tal cual. ueno es el deudor, los inversores son los tenedores, el 6,70 % son los <b>pagos de interés</b> y 2031 es la <b>fecha de vencimiento</b>.</p>
+        </div>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</section>
+
+<section id="u4">
+  <h2>Unidad 4: Desarrollo y crecimiento económico</h2>
+  <p class="lead">Filmina "U4 Filmina - FE II.pdf". De esta unidad, un solo tema se conecta de verdad con el caso.</p>
+
+  <table class="map">
+    <thead><tr><th>Tema de la filmina</th><th>Qué pasó en Paraguay y cómo se une</th></tr></thead>
+    <tbody>
+    <tr>
+      <td class="f">
+        <span class="tema">DESARROLLO ECONÓMICO</span>
+        <p class="conc"><b>Desarrollo = crecimiento + distribución del ingreso.</b> No alcanza con que crezca el PIB: el ingreso también tiene que llegar a la gente.</p>
+        <p class="conc">Una forma de redistribuir son los <b>programas de sostenimiento del ingreso</b>, como la seguridad social (las jubilaciones).</p>
+        <span class="ref">Filmina págs. 5 y 6 · Nota pág. 2</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>El IPS, la caja que paga las jubilaciones en Paraguay, tenía <b>cerca de US$ 380 millones invertidos en ueno</b>. Con la intervención, esa plata quedó atrapada en el banco.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>Las jubilaciones son justo lo que la cátedra llama <b>programa de sostenimiento del ingreso</b>. El golpe no cae sobre el crecimiento del PIB: cae sobre la <b>distribución del ingreso</b>, la otra mitad del desarrollo.</p>
+        </div>
+        <p class="lim">Ojo: la garantía cubre solo hasta ₲ 228,3 millones por depositante. Cuánto recupera el IPS por encima de eso depende de lo que resuelva la intervención.</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="u5">
+  <h2>Unidad 5: Comercio internacional y balanza de pagos</h2>
+  <p class="lead">Filmina "U5 Filminas 2º parte.pdf". El bono se vendió a inversores extranjeros, así que se registra en la balanza de pagos de Paraguay, igual que los ejemplos de la filmina.</p>
+
+  <table class="map">
+    <thead><tr><th>Tema de la filmina</th><th>Qué pasó en Paraguay y cómo se une</th></tr></thead>
+    <tbody>
+
+    <tr>
+      <td class="f">
+        <span class="tema">Balanza de Pagos (BP)</span>
+        <p class="conc">Es el registro de <b>todas las operaciones de un país con el resto del mundo</b> en un período.</p>
+        <p class="conc">BP = Cuenta Corriente + Cuenta Capital + Cuenta Financiera + Errores y Omisiones.</p>
+        <span class="ref">Filmina 2.ª parte págs. 2 y 3</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>ueno, un banco paraguayo, vendió su bono en Nueva York a inversores extranjeros.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>Es una operación entre Paraguay y el resto del mundo, así que <b>aparece en la balanza de pagos de Paraguay</b>. Las dos filas que siguen muestran en qué cuenta va cada parte.</p>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="f">
+        <span class="tema">Contabilidad de la Cuenta Financiera</span>
+        <p class="conc">Registra préstamos e inversiones con el exterior.</p>
+        <p class="conc"><b>Pasivo financiero:</b> cuando un extranjero invierte o presta en el país. Para el país es una <b>deuda, una obligación de pago</b>.</p>
+        <p class="conc">Ejemplo 8: un mexicano compra acciones de una empresa argentina, y para Argentina eso es un pasivo.</p>
+        <span class="ref">Filmina 2.ª parte págs. 10, 11 y 12 · Nota págs. 6 y 7</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>Inversores extranjeros le pusieron <b>US$ 350 millones</b> a ueno a cambio del bono.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>Es el mismo caso que el ejemplo 8, pero con bonos en lugar de acciones (la filmina lo llama <b>inversión en cartera</b>). Para Paraguay es un <b>pasivo financiero de US$ 350 millones</b>: plata que entró y que hay que devolver en 2031.</p>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="f">
+        <span class="tema">Contabilidad de la Cuenta Corriente</span>
+        <p class="conc">Tiene dos columnas, <b>ingresos y pagos</b>. Los intereses que se pagan al exterior van en la columna de pagos, como <b>rentas primarias</b>.</p>
+        <p class="conc">Ejemplo 3: un banco argentino le paga a un banco de España.</p>
+        <span class="ref">Filmina 2.ª parte págs. 5 y 6 · Nota págs. 5 y 6</span>
+      </td>
+      <td class="p">
+        <span class="k">Qué pasó</span>
+        <p>ueno se comprometió a pagarles a los inversores un <b>6,70 % de interés por año</b>.</p>
+        <div class="union">
+          <span class="k">Cómo se une</span>
+          <p>Es como el ejemplo 3: un banco del país le paga al exterior. Cada pago de intereses sale de Paraguay como <b>rentas primarias</b>.</p>
+          <p><b>350 millones × 6,70 % = US$ 23,45 millones por año.</b></p>
+        </div>
+        <p class="lim">Ojo: con el banco intervenido, no se sabe si esos pagos se van a seguir haciendo.</p>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</section>
+
+<section id="fuentes">
+  <h2>Fuentes del caso</h2>
+  <ul class="src">
+    <li><b>La Tribuna (Paraguay), sección Negocios</b>, 04/11/2026: <a href="https://www.latribuna.com.py/negocios/economia/2026/11/04/bcp-interviene-ueno-bank-tras-encontrar-deterioro-de-solvencia-y-desata-una-crisis/">intervención, causas que señala el BCP, garantía, IPS y fondos públicos</a>.</li>
+    <li><b>ABC Color, sección Economía</b>, 03/11/2026: <a href="https://www.abc.com.py/economia/2026/11/03/ueno-bank-el-bcp-anuncia-procedimiento-de-resolucion/">comunicado del BCP (solvencia por debajo del 50 % del mínimo)</a>.</li>
+    <li><b>Comunicado oficial del BCP</b>: <a href="https://www.bcp.gov.py/en/web/institucional/w/banco-central-inicia-el-procedimiento-de-resolucion-de-ueno-bank">Banco Central inicia el procedimiento de resolución de ueno bank</a> (la página bloqueó la lectura automática; su contenido se tomó de ABC y La Tribuna).</li>
+    <li><b>iProfesional, sección Finanzas</b>, 05/11/2026: <a href="https://www.iprofesional.com/finanzas/468355-como-estallo-el-escandalo-de-ueno-bank-que-termino-con-la-renuncia-de-pena-en-paraguay">encaje de US$ 70 M, solvencia 5,56 % vs. 12 %</a>.</li>
+    <li><b>La Gaceta</b>, 2026: <a href="https://www.lagaceta.com.ar/nota/1161157/economia/que-paso-ueno-bank-10-claves-escandalo-financiero-conmociona-paraguay.html">confirma el encaje de US$ 70 M y la solvencia de 5,56 %</a>.</li>
+    <li><b>LexLatin</b> (jurídico-financiero), 17/03/2026: <a href="https://lexlatin.com/noticias/ueno-bank-debuta-mercados-internacionales-emision-usd-millones">condiciones del bono</a>.</li>
+    <li><b>Bloomberg Línea</b> (económico), 21/10/2026: <a href="https://www.bloomberglinea.com/latinoamerica/banco-paraguayo-ueno-busca-reforzar-su-capital-en-medio-de-caida-de-bonos-y-escrutinio-regulatorio/">tamaño del banco y depósitos del Estado</a>.</li>
+  </ul>
+</section>
+
+</main>
+</body>
+</html>
